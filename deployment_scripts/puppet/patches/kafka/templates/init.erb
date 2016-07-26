@@ -1,0 +1,34 @@
+# Kafka Broker Service
+
+description "Kafka Broker"
+
+start on (started zookeeper)
+stop on (stopping zookeeper)
+
+respawn
+respawn limit 2 5
+
+env HOME=/opt/kafka/config
+env KAFKA_HOME=/opt/kafka
+env KAFKA_JMX_OPTS="<%= @jmx_opts %>"
+env KAFKA_LOG4J_OPTS="<%= @log4j_opts %>"
+env KAFKA_HEAP_OPTS="<%= @heap_opts %>"
+env KAFKA_GC_LOG_OPTS=" "
+umask 007
+
+limit nofile 65536 65536
+limit core unlimited unlimited
+
+kill timeout 300
+
+pre-start script
+    #Sanity checks
+    [ -r $HOME/server.properties ]
+end script
+
+setuid kafka
+setgid kafka
+
+script
+  $KAFKA_HOME/bin/kafka-server-start.sh $HOME/server.properties
+end script
