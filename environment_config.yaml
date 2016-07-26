@@ -1,0 +1,73 @@
+attributes:
+
+  advanced_settings:
+    label: "Advanced settings"
+    value: false
+    description: "The plugin determines the best settings if not set"
+    weight: 19
+    type: checkbox
+
+  kafka_jvm_heap_size:
+    value: '1'
+    label: 'Kafka JVM Heap size'
+    description: "The JVM Heap size for Kafka in GB"
+    weight: 20
+    type: "text"
+    regex:
+      source: '^\d+$'
+      error: "You must provide a number"
+    restrictions:
+      - condition: "settings:kafka.advanced_settings.value == false"
+        action: hide
+
+  zookeeper_jvm_heap_size:
+    value: '1'
+    label: 'ZooKeeper JVM Heap size'
+    description: 'The JVM Heap size for ZooKeeper in GB. Kafka documentation it is recommended to use 3-5 GB as the JVM Heap size for ZooKeeper'
+    weight: 21
+    type: "text"
+    regex:
+      source: '^\d+$'
+      error: "You must provide a number"
+    restrictions:
+      - condition: "settings:kafka.advanced_settings.value == false"
+        action: hide
+
+  num_partitions:
+    value: '5'
+    label: 'Number of partitions'
+    description: "The number of partitions per topic. Default is 5."
+    weight: 22
+    type: "text"
+    regex:
+      source: '^\d+$'
+      error: "You must provide a number"
+    restrictions:
+      - condition: "settings:kafka.advanced_settings.value == false"
+        action: hide
+
+  replication_factor:
+    value: ''
+    label: 'Replication factor'
+    description: 'The partition replication factor. Default is number of nodes in the Kafka cluster'
+    weight: 23
+    type: "text"
+    regex:
+      source: '^\d{0,2}$'
+      error: "You must provide either a number or leave it empty"
+    restrictions:
+      - condition: "settings:kafka.advanced_settings.value == false"
+        action: hide
+
+  log_retention_hours:
+    value: '168'
+    label: 'Retention period'
+    description: 'The log retention in hours. Default is 168 hours (7 days).'
+    weight: 24
+    type: "text"
+    regex:
+      source: '^\d+$'
+      error: "You must provide a number"
+    restrictions:
+      - condition: "settings:kafka.advanced_settings.value == false"
+        action: hide
