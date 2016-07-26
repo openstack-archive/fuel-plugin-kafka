@@ -1,0 +1,16 @@
+volumes:
+  - id: "kafka"
+    type: "partition"
+    file_system: “ext4”
+    min_size:
+      generator: "calc_gb_to_mb"
+      generator_args: [30]
+    label: "Kafka"
+    mount: "/opt/kafka-data"
+
+volumes_roles_mapping:
+  kafka:
+    - {allocate_size: "min", id: "os"}
+    - {allocate_size: "min", id: "logs"}
+    - {allocate_size: "full-disk", id: "kafka"}
+

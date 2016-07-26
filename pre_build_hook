@@ -1,0 +1,13 @@
+#!/bin/bash
+set -eux
+
+. "$(dirname "$(readlink -f "$0")")"/functions.sh
+
+KAFKA_MODULE_URL="https://forge.puppet.com/v3/files/puppet-kafka-2.0.0.tar.gz"
+ZOOKEEPER_MODULE_URL="https://forge.puppet.com/v3/files/cesnet-zookeeper-0.9.9.tar.gz"
+
+download_puppet_module "kafka" "${KAFKA_MODULE_URL}"
+download_puppet_module "zookeeper" "${ZOOKEEPER_MODULE_URL}"
+
+KAFKA_TARBALL_URL="http://mirrors.ukfast.co.uk/sites/ftp.apache.org/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz"
+download_file "${KAFKA_TARBALL_URL}" kafka_2.11-0.10.0.0.tgz repositories/ubuntu/kafka/0.10.0.0

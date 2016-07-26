@@ -1,0 +1,73 @@
+attributes:
+
+  advanced_settings:
+    label: "Advanced settings"
+    value: false
+    description: "The plugin determines the best settings if not set"
+    weight: 19
+    type: checkbox
+
+  kafka_jvm_heap_size:
+    value: '6'
+    label: 'The JVM Heap size for Kafka'
+    description: ""
+    weight: 20
+    type: "text"
+    regex:
+      source: '^\d+$'
+      error: "You must provide a number"
+    restrictions:
+      - condition: "settings:kafka.advanced_settings.value == false"
+        action: hide
+
+  zookeeper_jvm_heap_size:
+    value: '3'
+    label: 'The JVM Heap size for ZooKeeper'
+    description: 'Kafka documentation it is recommended to use 3-5 GB as the JVM Heap size for ZooKeeper'
+    weight: 21
+    type: "text"
+    regex:
+      source: '^\d+$'
+      error: "You must provide a number"
+    restrictions:
+      - condition: "settings:kafka.advanced_settings.value == false"
+        action: hide
+
+  num_partitions:
+    value: '5'
+    label: 'The number of partitions per topic'
+    description: "Default is 5."
+    weight: 22
+    type: "text"
+    regex:
+      source: '^\d+$'
+      error: "You must provide a number"
+    restrictions:
+      - condition: "settings:kafka.advanced_settings.value == false"
+        action: hide
+
+  replication_factor:
+    value: '5'
+    label: 'The partition replication factor'
+    description: 'Default is <number_of_nodes> in the Kafka cluster'
+    weight: 23
+    type: "text"
+    regex:
+      source: '^\d+$'
+      error: "You must provide a number"
+    restrictions:
+      - condition: "settings:kafka.advanced_settings.value == false"
+        action: hide
+
+  log_retention_hours:
+    value: '168'
+    label: 'The log retention in hours.'
+    description: 'Default is 168 hours (7 days).'
+    weight: 23
+    type: "text"
+    regex:
+      source: '^\d+$'
+      error: "You must provide a number"
+    restrictions:
+      - condition: "settings:kafka.advanced_settings.value == false"
+        action: hide
