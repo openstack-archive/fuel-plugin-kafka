@@ -1,0 +1,137 @@
+# Groups definitions
+####################
+- id: primary-kafka
+  type: group
+  version: 2.0.0
+  role: [primary-kafka]
+  tasks:
+    - hiera
+    - setup_repositories
+    - fuel_pkgs
+    - globals
+    - tools
+    - logging
+    - netconfig
+    - hosts
+    - kafka-firewall
+    - kafka-check-configuration
+    - zookeeper-installation
+    - kafka-hiera
+    - kafka-installation
+  requires: [deploy_start]
+  required_for: [deploy_end]
+  parameters:
+    strategy:
+      type: one_by_one
+
+- id: kafka
+  type: group
+  version: 2.0.0
+  role: [kafka]
+  tasks:
+    - hiera
+    - setup_repositories
+    - fuel_pkgs
+    - globals
+    - tools
+    - logging
+    - netconfig
+    - hosts
+    - kafka-firewall
+    - kafka-check-configuration
+    - kafka-hiera
+    - zookeeper-installation
+    - kafka-installation
+  requires: [deploy_start, primary-kafka]
+  required_for: [deploy_end]
+  parameters:
+    strategy:
+      type: parallel
+
+# Tasks definitions for the deployment
+######################################
+
+# This task needs to be reexecuted to adapt the configuration parameters which
+# depend on the number of nodes in the cluster
+- id: kafka-hiera
+  type: puppet
+  version: 2.0.0
+  requires: [netconfig]
+  required_for: [deploy_end]
+  parameters:
+    puppet_manifest: "puppet/manifests/hiera_override.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 120
+  reexecute_on:
+    - deploy_changes
+
+# This task needs to be reexecuted to recheck that the configuration parameters
+# match the node's characteristics (eg JVM size).
+- id: kafka-check-configuration
+  type: puppet
+  version: 2.0.0
+  requires: [kafka-hiera]
+  required_for: [deploy_end]
+  parameters:
+    puppet_manifest: puppet/manifests/check_environment_configuration.pp
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 120
+  reexecute_on:
+    - deploy_changes
+
+- id: kafka-firewall
+  type: puppet
+  version: 2.0.0
+  requires: [kafka-check-configuration]
+  required_for: [deploy_end]
+  parameters:
+    puppet_manifest: "puppet/manifests/firewall.pp"
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 3600
+
+- id: kafka-installation
+  type: puppet
+  version: 2.0.0
+  requires: [zookeeper-installation]
+  required_for: [deploy_end]
+  parameters:
+    puppet_manifest: puppet/manifests/kafka.pp
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+  reexecute_on:
+    - deploy_changes
+
+# This task needs to be reexecuted to reconfigure kafka instances
+- id: zookeeper-installation
+  type: puppet
+  version: 2.0.0
+  requires: [kafka-check-configuration]
+  required_for: [deploy_end]
+  parameters:
+    puppet_manifest: puppet/manifests/zookeeper.pp
+    puppet_modules: puppet/modules:/etc/puppet/modules
+    timeout: 600
+  reexecute_on:
+    - deploy_changes
+
+- id: kafka-dns-client
+  type: puppet
+  version: 2.0.0
+  role: [primary-kafka, kafka]
+  requires: [post_deployment_start]
+  required_for: [post_deployment_end]
+  parameters:
+    puppet_manifest: /etc/puppet/modules/osnailyfacter/modular/dns/dns-client.pp
+    puppet_modules: /etc/puppet/modules
+    timeout: 600
+
+- id: kafka-ntp-client
+  type: puppet
+  version: 2.0.0
+  role: [primary-kafka, kafka]
+  requires: [kafka-dns-client]
+  required_for: [post_deployment_end]
+  parameters:
+    puppet_manifest: /etc/puppet/modules/osnailyfacter/modular/ntp/ntp-client.pp
+    puppet_modules: /etc/puppet/modules
+    timeout: 600
