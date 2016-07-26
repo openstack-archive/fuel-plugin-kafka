@@ -1,0 +1,11 @@
+kafka:
+  name: 'Kafka'
+  description: 'Install Kafka Cluster'
+  has_primary: true
+  public_ip_required: false
+  weight: 100
+  limits:
+    max: 5
+    recommended: 3
+  conflicts:
+    - compute
