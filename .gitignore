@@ -1,0 +1,7 @@
+.bundled_gems/
+.build/
+kafka*rpm
+.tox
+deployment_scripts/puppet/modules/kafka/
+._*
+
