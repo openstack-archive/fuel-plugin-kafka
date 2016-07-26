@@ -1,0 +1,32 @@
+#!/bin/bash
+set -eux
+
+. "$(dirname "$(readlink -f "$0")")"/functions.sh
+
+KAFKA_MODULE_URL="https://forge.puppet.com/v3/files/puppet-kafka-2.0.0.tar.gz"
+ARCHIVE_MODULE_URL="https://forge.puppet.com/v3/files/puppet-archive-1.0.0.tar.gz"
+JAVA_MODULE_URL="https://forge.puppet.com/v3/files/puppetlabs-java-1.6.0.tar.gz"
+STDLIB_MODULE_URL="https://forge.puppet.com/v3/files/puppetlabs-stdlib-4.12.0.tar.gz"
+#ZOOKEEPER_MODULE_URL="https://forge.puppet.com/v3/files/deric-zookeeper-0.5.5.tar.gz"
+SYSTEMD_MODULE_URL="https://forge.puppet.com/v3/files/camptocamp-systemd-0.2.2.tar.gz"
+
+download_puppet_module "kafka" "${KAFKA_MODULE_URL}"
+download_puppet_module "archive" "${ARCHIVE_MODULE_URL}"
+download_puppet_module "java" "${JAVA_MODULE_URL}"
+download_puppet_module "stdlib" "${STDLIB_MODULE_URL}"
+#module is modified to support node UIDs zoo.cfg.erb
+#download_puppet_module "zookeeper" "${ZOOKEEPER_MODULE_URL}"
+download_puppet_module "systemd" "${SYSTEMD_MODULE_URL}"
+
+#TODO
+# remove sshfs temp files ???
+
+# TODO ???
+sed -ir 's/validate_re[(]$mirror_url/#validate_re[(]$mirror_url/g' deployment_scripts/puppet/modules/kafka/manifests/init.pp
+
+# use deric-zookeeper or cesnet-zookeeper ?
+#ZOOKEEPER_MODULE_URL="https://forge.puppet.com/v3/files/cesnet-zookeeper-0.9.9.tar.gz"
+#download_puppet_module "zookeeper" "${ZOOKEEPER_MODULE_URL}"
+
+KAFKA_TARBALL_URL="http://mirrors.ukfast.co.uk/sites/ftp.apache.org/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz"
+download_file "${KAFKA_TARBALL_URL}" kafka_2.11-0.10.0.0.tgz repositories/ubuntu/kafka/0.10.0.0
