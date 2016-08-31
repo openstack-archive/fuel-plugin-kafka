@@ -1,10 +1,7 @@
-.. _installation guide:
+.. _installation:
 
-Installation Guide
-==================
-
-Install the Plugin
-------------------
+Install the plugin
+~~~~~~~~~~~~~~~~~~
 
 To install the *Kafka Plugin*, you need to follow these steps.
 
