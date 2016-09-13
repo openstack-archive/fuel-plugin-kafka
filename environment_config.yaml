@@ -1,7 +1,7 @@
 attributes:
 
   kafka_jvm_heap_size:
-    value: '1'
+    value: '8'
     label: 'Kafka JVM Heap size'
     description: "The JVM Heap size for Kafka in GB"
     weight: 10
@@ -11,9 +11,9 @@ attributes:
       error: "You must provide a number"
 
   zookeeper_jvm_heap_size:
-    value: '1'
+    value: '3'
     label: 'ZooKeeper JVM Heap size'
-    description: 'The JVM Heap size for ZooKeeper in GB. Kafka documentation it is recommended to use 3-5 GB as the JVM Heap size for ZooKeeper'
+    description: 'The JVM Heap size for ZooKeeper in GB'
     weight: 15
     type: "text"
     regex:
