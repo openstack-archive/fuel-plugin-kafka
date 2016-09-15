@@ -3,6 +3,8 @@
 Requirements
 ~~~~~~~~~~~~
 
+The Kafka Plugin has the following requirements:
+
 .. tabularcolumns:: |p{4cm}|p{12.5cm}|
 
 +----------------------+-------------------------------------------------------+
@@ -26,4 +28,11 @@ Requirements
 |                      |setup would require a quad-core server with at least   |
 |                      |8 GB of RAM for Kafka and 3GB for Zookeeper and access |
 |                      |to a 500+ IOPS disk.                                   |
++----------------------+-------------------------------------------------------+
+|OpenStack nodes       |The plugin implements the *Kafka* Fuel role. The       |
+|                      |maximum number of nodes for the *Kafka* Fuel role is   |
+|                      |five. To support high-availability, the minimum number |
+|                      |of nodes is three. You need to have an initial odd     |
+|                      |number of nodes to comply with the leader election     |
+|                      |process constraints.                                   |
 +----------------------+-------------------------------------------------------+
