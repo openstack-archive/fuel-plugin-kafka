@@ -3,7 +3,7 @@ name: kafka
 # Human-readable name for your plugin
 title: The Apache Kafka Message Broker Plugin
 # Plugin version
-version: '0.1.0'
+version: '1.0.0'
 # Description
 description: Deploy Apache Kafka Message Broker Cluster
 # Required fuel version
