@@ -3,43 +3,41 @@
 Configure the plugin
 ~~~~~~~~~~~~~~~~~~~~
 
-Once the *Kafka Plugin* is installed following the instructions of
-the :ref:`installation`, you can add Kafka nodes to new or
-existing Mirantis OpenStack (MOS) environment.
+Once installed, configure the Kafka Plugin and add nodes with the **Kafka**
+role to a new or existing Mirantis OpenStack environment.
 
-To use the *Kafka Plugin*, you need to add nodes with the **Kafka** role
-`Add a node to an OpenStack environment
-<http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/add-nodes.html>`_.
+**To configure the plugin:**
 
-1. Make sure that the plugin is properly installed on the Fuel Master node.
-
-   Go to the *Plugins* tab. You should see the following:
+#. Log in to the Fuel web UI.
+#. Verify that the Kafka Plugin is listed in the :guilabel:`Plugins` tab:
 
    .. image:: images/plugins-list.png
-    :width: 100%
+      :width: 450pt
 
-2. Enable the plugin. You can configure additional settings on this step.
+#. `Create a new environment <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/create-environment/start-create-env.html>`_
+   or use an existing one.
 
-   Go to the *Environments* tab and select the *The Apache Kafka Message
-   Broker Plugin* checkbox:
+#. To enable the plugin and configure additional settings, navigate to the
+   :guilabel:`Environments` tab and select the
+   :guilabel:`The Apache Kafka Message Broker Plugin` checkbox:
 
    .. image:: images/settings.png
-    :width: 100%
+      :width: 450pt
 
-3.  Add nodes to your environment and assign the **Kafka** role.
+#.  Add nodes to your environment and assign the **Kafka** role to these nodes.
 
    .. note:: When `adding nodes
       <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/add-nodes.html>`_
-      to the environment and `assign or change a role
+      to the environment and `assigning or changing a role
       <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/change-roles.html>`_,
-      do not forget to use an odd number of nodes as recommended in the :ref:`introduction` section.
+      do not forget to use an odd number of nodes as recommended in the
+      :ref:`requirements` section.
 
-  .. image:: images/assign-role.png
-    :width: 100%
+   .. image:: images/assign-role.png
+      :width: 450pt
 
 4. `Verify your network configuration
    <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/configure-environment/verify-networks.html>`_.
 
-5. `Deploy your changes
-   <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/deploy-environment.html>`_
-   once you are done with the configuration of your environment.
+5. `Deploy your environment
+   <http://docs.openstack.org/developer/fuel-docs/userdocs/fuel-user-guide/deploy-environment.html>`_.
