@@ -7,7 +7,7 @@ master_doc = 'index'
 project = u'The Kafka Cluster Plugin'
 copyright = u'2016, Mirantis Inc.'
 version = '1.0'
-release = '0.1.0'
+release = '1.0.0'
 exclude_patterns = [
 ]
 pygments_style = 'sphinx'
