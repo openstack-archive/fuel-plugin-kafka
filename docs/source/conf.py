@@ -4,27 +4,27 @@ extensions = []
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
-project = u'The Kafka Cluster Plugin'
+project = u'The Kafka Fuel Plugin'
 copyright = u'2016, Mirantis Inc.'
 version = '1.0'
-release = '0.1.0'
+release = '1.0.0'
 exclude_patterns = [
 ]
 pygments_style = 'sphinx'
 html_theme = 'default'
-htmlhelp_basename = 'RedisPlugindoc'
+htmlhelp_basename = 'KafkaPlugindoc'
 latex_elements = {
 }
 latex_documents = [
-  ('index', 'KafkaPlugindoc.tex', u'The Kafka Cluster Plugin',
+  ('index', 'KafkaPlugindoc.tex', u'The Kafka Fuel Plugin',
    u'Mirantis Inc.', 'manual'),
 ]
 man_pages = [
-    ('index', 'kafkaplugin', u'The Kafka Cluster Plugin',
+    ('index', 'kafkaplugin', u'The Kafka Fuel Plugin',
      [u'Mirantis Inc.'], 1)
 ]
 texinfo_documents = [
-  ('index', 'KafkaPlugin', u'The Kafka Cluster Plugin',
+  ('index', 'KafkaPlugin', u'The Kafka Fuel Plugin',
    u'Mirantis Inc.', 'KafkaPlugin', 'One line description of project.',
    'Miscellaneous'),
 ]
