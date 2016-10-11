@@ -1,20 +1,20 @@
-==================================================
-Welcome to the Kafka Cluster Plugin documentation!
-==================================================
+===================================================
+Welcome to the Kafka plugin for Fuel documentation!
+===================================================
 
 Overview
 ========
 
 .. toctree::
    :maxdepth: 1
-   
+
    intro
    requirements
    limitations
    references
 
-Installing and configuring the Kafka Cluster Plugin for Fuel
-============================================================
+Installing and configuring the Kafka plugin for Fuel
+====================================================
 
 .. toctree::
    :maxdepth: 2
