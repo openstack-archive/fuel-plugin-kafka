@@ -20,29 +20,33 @@ class kafka::broker::service(
   }
 
   if $service_install {
-    if $::service_provider == 'systemd' {
-      include ::systemd
 
-      file { '/usr/lib/systemd/system/kafka.service':
-        ensure  => present,
-        mode    => '0644',
-        content => template('kafka/broker.unit.erb'),
-      }
+    if $::operatingsystem == 'Ubuntu' {
+      if versioncmp($::operatingsystemmajrelease, '16') >= 0 {
 
-      file { '/etc/init.d/kafka':
-        ensure => absent,
-      }
+        include ::systemd
 
-      File['/usr/lib/systemd/system/kafka.service'] ~> Exec['systemctl-daemon-reload'] -> Service['kafka']
-    } else {
-      file { '/etc/init/kafka.conf':
-        ensure  => present,
-        mode    => '0755',
-        content => template('kafka/init.erb'),
-        before  => Service['kafka'],
+        file { 'kafka-service-unit':
+          path    => '/lib/systemd/system/kafka.service',
+          ensure  => present,
+          mode    => '0644',
+          content => template('kafka/broker.unit.erb'),
+        }
+
+        file { '/etc/init.d/kafka':
+          ensure => absent,
+        }
+
+        File['kafka-service-unit'] ~> Exec['systemctl-daemon-reload'] -> Service['kafka']
+      } else {
+        file { '/etc/init/kafka.conf':
+          ensure  => present,
+          mode    => '0755',
+          content => template('kafka/init.erb'),
+          before  => Service['kafka'],
+        }
       }
     }
-
     service { 'kafka':
       ensure     => $service_ensure,
       enable     => true,
