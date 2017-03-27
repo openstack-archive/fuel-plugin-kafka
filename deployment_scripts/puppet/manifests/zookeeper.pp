@@ -19,11 +19,27 @@ $addresses_map  = hiera('kafka::addresses_map')
 $heap_size      = hiera('zookeeper::jvm_heap_size')
 $datastore      = hiera('kafka::data_dir')
 
-class { 'zookeeper':
-  servers   => $addresses_map,
-  id        => $myid,
-  datastore => $datastore,
-  java_opts => "-Xmx${heap_size}G -Xms${heap_size}G",
+if versioncmp($::operatingsystemmajrelease, '16') >= 0 {
+
+  class { 'zookeeper':
+    servers             => $addresses_map,
+    id                  => $myid,
+    datastore           => $datastore,
+    java_opts           => "-Xmx${heap_size}G -Xms${heap_size}G",
+    service_provider    => 'systemd',
+    manage_service      => true,
+    manage_service_file => true,
+    packages            => ['zookeeper'],
+    rollingfile_threshold => 'DEBUG',
+  }
+} else {
+
+  class { 'zookeeper':
+    servers             => $addresses_map,
+    id                  => $myid,
+    datastore           => $datastore,
+    java_opts           => "-Xmx${heap_size}G -Xms${heap_size}G",
+  }
 }
 
 file { '/etc/logrotate.d/zookeeper.conf':
