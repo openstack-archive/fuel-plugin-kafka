@@ -83,7 +83,7 @@
   type: puppet
   version: 2.0.0
   requires: [kafka-check-configuration]
-  required_for: [deploy_end]
+  required_for: [zookeeper-installation]
   parameters:
     puppet_manifest: "puppet/manifests/firewall.pp"
     puppet_modules: puppet/modules:/etc/puppet/modules
@@ -105,7 +105,7 @@
 - id: zookeeper-installation
   type: puppet
   version: 2.0.0
-  requires: [kafka-check-configuration]
+  requires: [kafka-check-configuration,kafka-firewall]
   required_for: [deploy_end]
   parameters:
     puppet_manifest: puppet/manifests/zookeeper.pp
