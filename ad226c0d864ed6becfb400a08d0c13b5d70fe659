@@ -1,0 +1,9 @@
+Code-Review+2: Nadya Shakhat <nprivalova@mirantis.com>
+Workflow+1: Nadya Shakhat <nprivalova@mirantis.com>
+Code-Review+1: Aleksandr Kholkin <akholkin@mirantis.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Tue, 04 Apr 2017 14:27:16 +0000
+Reviewed-on: https://review.openstack.org/450249
+Project: openstack/fuel-plugin-kafka
+Branch: refs/heads/master
