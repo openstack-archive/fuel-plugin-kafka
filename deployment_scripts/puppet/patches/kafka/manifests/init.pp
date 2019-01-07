@@ -9,7 +9,7 @@
 # === Requirements/Dependencies
 #
 # Currently requires the puppetlabs/stdlib module on the Puppet Forge in
-# order to validate much of the the provided configuration.
+# order to validate much of the provided configuration.
 #
 # === Parameters
 #
