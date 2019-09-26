@@ -1,10 +1,3 @@
-Kafka plugin
-=======================
+# This repo has moved to OpenDev
 
-The *Kafka Plugin* installs [Apache Kafka](http://kafka.apache.org) and
-[Apache ZooKeeper](https://zookeeper.apache.org) in a Mirantis OpenStack
-environment deployed by Fuel.
-
-Please go to the [Kafka Plugin Documentation](
-http://fuel-plugin-kafka.readthedocs.org/en/latest/index.html)
-to get started.
+It can now be found at [https://opendev.org/x/fuel-plugin-kafka](https://opendev.org/x/fuel-plugin-kafka)
